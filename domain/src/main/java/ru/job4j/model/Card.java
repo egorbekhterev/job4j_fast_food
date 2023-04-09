@@ -4,8 +4,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author: Egor Bekhterev
@@ -15,23 +13,16 @@ import java.util.List;
 @Data
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Dish {
+@Table(name = "cards")
+public class Card {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private int id;
 
-    private String name;
+    @Column(name = "card_number")
+    private int cardNumber;
 
-    private int price;
-
-    private String category;
-
-    @ElementCollection
-    @Enumerated(EnumType.STRING)
-    private List<Ingredient> ingredients = new ArrayList<>();
-
-    @ManyToOne
-    private Order order;
+    private int bonuses;
 }

@@ -1,19 +1,21 @@
 package ru.job4j.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
-/**
- * @author: Egor Bekhterev
- * @date: 08.04.2023
- * @project: job4j_fast_food
- */
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Ingredient {
-
-    @EqualsAndHashCode.Include
-    private int id;
-
-    private String name;
+public enum Ingredient {
+    PEPPERONI,
+    BEEF_PATTY,
+    BUN,
+    CHEDDAR_CHEESE,
+    LETTUCE,
+    TOMATO,
+    ONION,
+    PICKLES,
+    KETCHUP,
+    MUSTARD,
+    MAYONNAISE,
+    FRIES,
+    CHICKEN_NUGGETS,
+    SOFT_DRINK,
+    SWEET_AND_SOUR_SAUCE,
+    BARBECUE_SAUCE,
+    HONEY_MUSTARD_SAUCE
 }
