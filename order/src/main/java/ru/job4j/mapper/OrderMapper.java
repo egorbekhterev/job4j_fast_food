@@ -1,6 +1,6 @@
 package ru.job4j.mapper;
 
-import ru.job4j.dto.OrderDTO;
+import ru.job4j.dto.OrderDTOResponse;
 import ru.job4j.model.Order;
 
 /**
@@ -10,8 +10,8 @@ import ru.job4j.model.Order;
  */
 public class OrderMapper {
 
-    public static OrderDTO toDTO(Order order) {
-        var orderDTO = new OrderDTO();
+    public static OrderDTOResponse toDTO(Order order) {
+        var orderDTO = new OrderDTOResponse();
         orderDTO.setName(order.getName());
         orderDTO.setStatus(order.getStatus().toString());
         return orderDTO;

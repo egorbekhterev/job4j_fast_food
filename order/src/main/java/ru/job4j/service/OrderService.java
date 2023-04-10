@@ -2,8 +2,10 @@ package ru.job4j.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.job4j.dto.OrderDTORequest;
 import ru.job4j.model.Order;
 import ru.job4j.model.Status;
+import ru.job4j.repository.CustomerRepository;
 import ru.job4j.repository.OrderRepository;
 
 /**
@@ -16,9 +18,17 @@ import ru.job4j.repository.OrderRepository;
 public class OrderService {
 
     private OrderRepository orderRepository;
+    private CustomerRepository customerRepository;
 
-    public Order save(Order order) {
-        return orderRepository.save(order);
+    public Order save(OrderDTORequest orderDTORequest) {
+        return customerRepository.findById(orderDTORequest.getCustomerId())
+                .map(customer -> {
+                    var order = new Order();
+                    order.setName(orderDTORequest.getName());
+                    order.setStatus(orderDTORequest.getStatus());
+                    order.setCustomer(customer);
+                    return orderRepository.save(order);
+                }).orElse(null);
     }
 
     public Status checkStatus(int orderId) {

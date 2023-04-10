@@ -8,7 +8,7 @@ import lombok.Data;
  * @project: job4j_fast_food
  */
 @Data
-public class OrderDTO {
+public class OrderDTOResponse {
 
     private String name;
 

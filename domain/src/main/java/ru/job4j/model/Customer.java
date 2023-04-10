@@ -28,5 +28,6 @@ public class Customer {
     private String password;
 
     @OneToOne
+    @JoinColumn(name = "card_id")
     private Card card;
 }

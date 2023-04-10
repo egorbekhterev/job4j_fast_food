@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.job4j.model.Card;
+import ru.job4j.model.Customer;
 import ru.job4j.service.CustomerService;
 
 /**
@@ -24,5 +25,10 @@ public class CustomerController {
     @PostMapping("/buyCard/{id}")
     public ResponseEntity<Integer> buyCard(@RequestBody Card card, @PathVariable int id) {
         return new ResponseEntity<>(customerService.buyCard(card, id).getCardNumber(), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/saveCustomer")
+    public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer) {
+        return new ResponseEntity<>(customerService.save(customer), HttpStatus.CREATED);
     }
 }

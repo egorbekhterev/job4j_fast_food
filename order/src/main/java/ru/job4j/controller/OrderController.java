@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.job4j.dto.OrderDTO;
+import ru.job4j.dto.OrderDTORequest;
+import ru.job4j.dto.OrderDTOResponse;
 import ru.job4j.mapper.OrderMapper;
-import ru.job4j.model.Order;
 import ru.job4j.service.OrderService;
 
 /**
@@ -21,8 +21,8 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping("/createOrder")
-    public ResponseEntity<OrderDTO> createOrder(@RequestBody Order order) {
-        return new ResponseEntity<>(OrderMapper.toDTO(orderService.save(order)), HttpStatus.CREATED);
+    public ResponseEntity<OrderDTOResponse> createOrder(@RequestBody OrderDTORequest orderDTORequest) {
+        return new ResponseEntity<>(OrderMapper.toDTO(orderService.save(orderDTORequest)), HttpStatus.CREATED);
     }
 
     @GetMapping("/checkStatus/{orderId}")
