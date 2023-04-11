@@ -1,4 +1,4 @@
-package ru.job4j.model;
+package ru.job4j.model.order;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,21 +13,16 @@ import javax.persistence.*;
 @Data
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Table(name = "customers")
-public class Customer {
+@Table(name = "cards")
+public class Card {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private int id;
 
-    private String name;
+    @Column(name = "card_number")
+    private int cardNumber;
 
-    private String login;
-
-    private String password;
-
-    @OneToOne
-    @JoinColumn(name = "card_id")
-    private Card card;
+    private int bonuses;
 }

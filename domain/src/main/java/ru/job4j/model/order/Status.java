@@ -1,4 +1,4 @@
-package ru.job4j.model;
+package ru.job4j.model.order;
 
 public enum Status {
     PENDING,

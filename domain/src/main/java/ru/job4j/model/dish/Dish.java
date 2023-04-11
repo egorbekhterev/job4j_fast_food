@@ -1,4 +1,4 @@
-package ru.job4j.model;
+package ru.job4j.model.dish;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -26,12 +26,10 @@ public class Dish {
 
     private int price;
 
-    private String category;
+    @Enumerated(EnumType.STRING)
+    private Category category;
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
     private List<Ingredient> ingredients = new ArrayList<>();
-
-    @ManyToOne
-    private Order order;
 }
