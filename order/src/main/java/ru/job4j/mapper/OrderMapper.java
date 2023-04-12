@@ -1,7 +1,7 @@
 package ru.job4j.mapper;
 
 import ru.job4j.dto.OrderDTOResponse;
-import ru.job4j.model.Order;
+import ru.job4j.model.order.Order;
 
 /**
  * @author: Egor Bekhterev

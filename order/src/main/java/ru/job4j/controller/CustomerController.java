@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import ru.job4j.model.Card;
-import ru.job4j.model.Customer;
+import ru.job4j.model.order.Card;
+import ru.job4j.model.order.Customer;
 import ru.job4j.service.CustomerService;
 
 /**

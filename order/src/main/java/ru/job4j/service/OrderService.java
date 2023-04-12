@@ -3,8 +3,8 @@ package ru.job4j.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.job4j.dto.OrderDTORequest;
-import ru.job4j.model.Order;
-import ru.job4j.model.Status;
+import ru.job4j.model.order.Order;
+import ru.job4j.model.order.Status;
 import ru.job4j.repository.CustomerRepository;
 import ru.job4j.repository.OrderRepository;
 

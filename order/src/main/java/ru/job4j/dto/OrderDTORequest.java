@@ -1,7 +1,7 @@
 package ru.job4j.dto;
 
 import lombok.Data;
-import ru.job4j.model.Status;
+import ru.job4j.model.order.Status;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;

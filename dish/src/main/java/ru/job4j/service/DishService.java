@@ -1,6 +1,7 @@
 package ru.job4j.service;
 
-import ru.job4j.model.Dish;
+import ru.job4j.model.dish.Category;
+import ru.job4j.model.dish.Dish;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,13 +15,17 @@ public interface DishService {
 
     Dish addDish(Dish dish);
 
-    Optional<Dish> findByName(String name);
+    List<Dish> findByName(String name);
 
     List<Dish> findAll();
 
+    Optional<Dish> findById(int id);
+
+    List<Dish> findByCategory(Category category);
+
     List<Dish> findByIngredients(List<String> ingredients);
 
-    void deleteById(int id);
+    boolean deleteById(int id);
 
-    void update(Dish dish);
+    boolean update(Dish dish, int id);
 }

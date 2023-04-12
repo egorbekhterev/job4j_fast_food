@@ -15,6 +15,7 @@ import java.util.List;
 @Data
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Table(name = "dishes")
 public class Dish {
 
     @Id
@@ -29,7 +30,7 @@ public class Dish {
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    @ElementCollection
-    @Enumerated(EnumType.STRING)
+    @OneToMany
+    @JoinColumn(name = "dish_id")
     private List<Ingredient> ingredients = new ArrayList<>();
 }

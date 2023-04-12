@@ -2,7 +2,7 @@ package ru.job4j.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.job4j.model.Card;
+import ru.job4j.model.order.Card;
 import ru.job4j.repository.CardRepository;
 
 /**

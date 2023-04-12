@@ -1,3 +1,4 @@
+*.log
 mvn*
 .mvn
 HELP.md
