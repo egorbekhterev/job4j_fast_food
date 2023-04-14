@@ -14,6 +14,7 @@ public class OrderMapper {
         var orderDTO = new OrderDTOResponse();
         orderDTO.setName(order.getName());
         orderDTO.setStatus(order.getStatus().toString());
+        orderDTO.setDishes(order.getDishes());
         return orderDTO;
     }
 }

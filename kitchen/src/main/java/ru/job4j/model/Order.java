@@ -1,8 +1,10 @@
-package ru.job4j.model.order;
+package ru.job4j.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.job4j.model.dish.Dish;
+import ru.job4j.model.order.Customer;
+import ru.job4j.model.order.Status;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,7 +16,7 @@ import java.util.List;
  * @project: job4j_fast_food
  */
 @Data
-@Entity
+@Entity(name = "job4j_orders")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "orders")
 public class Order {
@@ -41,3 +43,4 @@ public class Order {
     )
     private List<Dish> dishes = new ArrayList<>();
 }
+

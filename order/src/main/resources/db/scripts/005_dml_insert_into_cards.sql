@@ -1,0 +1,2 @@
+INSERT INTO cards (card_number, bonuses)
+VALUES (234678, 0), (234679, 100) ON CONFLICT DO NOTHING;

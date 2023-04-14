@@ -23,4 +23,6 @@ public interface DishRepository extends CrudRepository<Dish, Integer> {
 
     @Query("SELECT d FROM Dish d WHERE d.category = :category")
     List<Dish> findByCategory(Category category);
+
+    List<Dish> findAllByIdIn(List<Integer> dishIds);
 }

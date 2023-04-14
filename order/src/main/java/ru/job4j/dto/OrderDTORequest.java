@@ -5,6 +5,7 @@ import ru.job4j.model.order.Status;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.util.List;
 
 /**
  * @author: Egor Bekhterev
@@ -20,4 +21,6 @@ public class OrderDTORequest {
     private Status status;
 
     private int customerId;
+
+    private List<Integer> dishIds;
 }

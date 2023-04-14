@@ -16,11 +16,18 @@ import ru.job4j.service.OrderService;
  */
 @RestController
 @AllArgsConstructor
+@RequestMapping("/order")
 public class OrderController {
 
     private OrderService orderService;
 
-    @PostMapping("/createOrder")
+    @GetMapping("/{id}")
+    public ResponseEntity<OrderDTOResponse> findById(@PathVariable int id) {
+        var order = orderService.findById(id);
+        return new ResponseEntity<>(OrderMapper.toDTO(order), HttpStatus.OK);
+    }
+
+    @PostMapping("/create")
     public ResponseEntity<OrderDTOResponse> createOrder(@RequestBody OrderDTORequest orderDTORequest) {
         return new ResponseEntity<>(OrderMapper.toDTO(orderService.save(orderDTORequest)), HttpStatus.CREATED);
     }
