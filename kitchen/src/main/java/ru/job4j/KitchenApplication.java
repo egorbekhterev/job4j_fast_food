@@ -2,6 +2,8 @@ package ru.job4j;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 /**
  * @author: Egor Bekhterev
@@ -9,7 +11,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @project: job4j_fast_food
  */
 @SpringBootApplication
-public class KitchenApplication {
+public class KitchenApplication extends SpringBootServletInitializer {
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(KitchenApplication.class);
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(KitchenApplication.class, args);

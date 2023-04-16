@@ -1,6 +1,8 @@
 package ru.job4j.service;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import ru.job4j.dto.OrderDTORequest;
@@ -20,12 +22,18 @@ import java.util.List;
  */
 @Service
 @AllArgsConstructor
+@Slf4j
 public class OrderService {
 
-    private KafkaTemplate<String, Object> kafkaTemplate;
     private OrderRepository orderRepository;
     private CustomerRepository customerRepository;
     private DishRepository dishRepository;
+    private KafkaTemplate<String, Object> kafkaTemplate;
+
+    @KafkaListener(topics = "ready_order")
+    public void receiveOrder(Order order) {
+        log.debug(order.toString());
+    }
 
     public Order save(OrderDTORequest orderDTORequest) {
         return customerRepository.findById(orderDTORequest.getCustomerId())
@@ -38,9 +46,9 @@ public class OrderService {
                     order.setDishes(dishes);
 
                     var savedOrder = orderRepository.save(order);
-                    kafkaTemplate.send("job4j_orders", savedOrder);
+                    kafkaTemplate.send("preorder", savedOrder);
                     kafkaTemplate.send("messengers", savedOrder);
-                    return orderRepository.save(savedOrder);
+                    return savedOrder;
                 }).orElse(null);
     }
 
