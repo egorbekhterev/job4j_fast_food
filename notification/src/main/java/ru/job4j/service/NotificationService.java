@@ -25,4 +25,9 @@ public class NotificationService {
         log.debug(order.toString());
         notificationRepository.save(OrderMapper.toDTO(order));
     }
+
+    @KafkaListener(topics = "impossible")
+    public void impossibleOrder(Order order) {
+        log.debug("Impossible to cook this order, no ingredients for one of these products: {}", order.getDishes());
+    }
 }

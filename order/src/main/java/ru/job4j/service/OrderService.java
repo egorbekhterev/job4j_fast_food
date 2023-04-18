@@ -6,6 +6,8 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import ru.job4j.dto.OrderDTORequest;
+import ru.job4j.dto.OrderTransfer;
+import ru.job4j.mapper.OrderMapper;
 import ru.job4j.model.dish.Dish;
 import ru.job4j.model.order.Order;
 import ru.job4j.model.order.Status;
@@ -21,8 +23,8 @@ import java.util.List;
  * @project: job4j_fast_food
  */
 @Service
-@AllArgsConstructor
 @Slf4j
+@AllArgsConstructor
 public class OrderService {
 
     private OrderRepository orderRepository;
@@ -30,9 +32,11 @@ public class OrderService {
     private DishRepository dishRepository;
     private KafkaTemplate<String, Object> kafkaTemplate;
 
-    @KafkaListener(topics = "ready_order")
-    public void receiveOrder(Order order) {
-        log.debug(order.toString());
+    @KafkaListener(topics = "cooked_order")
+    public void receiveStatus(OrderTransfer order) {
+        StringBuffer stringBuffer = new StringBuffer();
+        log.debug(stringBuffer.append(order.getName()).append(" ").append(order.getStatus()).toString());
+        kafkaTemplate.send("messengers", OrderMapper.fromDTO(order));
     }
 
     public Order save(OrderDTORequest orderDTORequest) {

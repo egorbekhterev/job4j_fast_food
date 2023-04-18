@@ -4,12 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import ru.job4j.dto.OrderTransfer;
 import ru.job4j.mapper.OrderMapper;
+import ru.job4j.model.dish.Dish;
 import ru.job4j.model.order.Order;
 import ru.job4j.model.order.Status;
 import ru.job4j.repository.KitchenRepository;
+
+import java.util.Optional;
 
 
 /**
@@ -25,20 +28,25 @@ public class KitchenService {
     private KitchenRepository kitchenRepository;
     private KafkaTemplate<String, Object> kafkaTemplate;
 
-    @Scheduled(fixedDelay = 30000)
-    private void sendOrder(Order order) {
-        order.setStatus(Status.READY);
-        kitchenRepository.findById(order.getId()).map(ord -> kitchenRepository.save(OrderMapper.toDTO(order)))
-                .orElse(null);
-        kafkaTemplate.send("ready_order", order);
+    public Optional<OrderTransfer> updateReady(int id) {
+        var rsl = kitchenRepository.findById(id).map(order -> {
+            order.setStatus(Status.READY);
+            return kitchenRepository.save(order);
+                });
+
+        rsl.ifPresent(orderTransfer -> kafkaTemplate.send("cooked_order", orderTransfer));
+        return rsl;
     }
 
     @KafkaListener(topics = "preorder")
     public void receiveOrder(Order order) {
-        log.debug(order.toString());
-        var dto = OrderMapper.toDTO(order);
-        kitchenRepository.save(dto);
-
-        sendOrder(order);
+        if (!order.getDishes().stream().map(Dish::getId).filter(integer -> integer == 3).toList().isEmpty()) {
+            log.debug("Impossible to cook this order, no ingredients for one of these products: {}", order.getDishes());
+            kafkaTemplate.send("impossible", order);
+        } else {
+            log.debug(order.toString());
+            var dto = OrderMapper.toDTO(order);
+            kitchenRepository.save(dto);
+        }
     }
 }
