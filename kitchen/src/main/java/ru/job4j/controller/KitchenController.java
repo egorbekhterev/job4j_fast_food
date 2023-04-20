@@ -22,10 +22,14 @@ public class KitchenController {
 
     @GetMapping("/updateReady/{id}")
     public ResponseEntity<OrderTransfer> updateReady(@PathVariable int id) {
-        var order = kitchenService.updateReady(id).orElseThrow(() -> new ResponseStatusException(
-                HttpStatus.NOT_FOUND, "Order is not found. Please, check the identificator."
-        ));
+        var optionalOrder = kitchenService.updateReady(id);
 
-        return new ResponseEntity<>(order, HttpStatus.OK);
+        if (optionalOrder.isEmpty()) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Order is not found. Please, check the identificator."
+            );
+        }
+
+        return new ResponseEntity<>(optionalOrder.get(), HttpStatus.OK);
     }
 }

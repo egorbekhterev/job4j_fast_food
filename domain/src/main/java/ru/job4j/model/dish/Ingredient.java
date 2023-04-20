@@ -1,6 +1,6 @@
 package ru.job4j.model.dish;
 
-import lombok.Data;
+import  lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
